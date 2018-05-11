@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: currency
+  labels:
+    app: currency
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        app: currency
+  template:
+    metadata:
+      labels:
+        app: currency
+    spec:
+      containers:
+      - name: currency
+        image: ${DOCKER_ID_USER}/currency_rate
+        command:
+        ports:
+          - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: currency
+spec:
+  selector:
+    app: currency
+  type: NodePort
+  ports:
+  - port: 8080
+    protocol: TCP
+    nodePort: 31001
+    name: currency
