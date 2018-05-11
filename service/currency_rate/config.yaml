@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+service:
+  name: "currency_rate"
+
+rates:
+  url: "https://free.currencyconverterapi.com/api/v5/"
+  updateIntervalMin: 5
+
