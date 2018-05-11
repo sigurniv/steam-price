@@ -1,0 +1,10 @@
+server:
+  port: 8083
+
+service:
+  name: "steam_game_price"
+
+backends:
+  currency_rate: "currency:8080"
+  steam_game: "steamgame:8081"
+
