@@ -10,7 +10,7 @@ import (
 	"path/filepath"
 	"github.com/spf13/viper"
 	"context"
-	"github.com/sigurniv/steam-price/service/steam_game/app"
+	"github.com/sigurniv/steam-price/service/steam_game_price/app"
 )
 
 func main() {

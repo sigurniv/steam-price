@@ -12,7 +12,6 @@ import (
 
 type Service struct {
 	apiUrl     string
-	currencies map[string]struct{}
 }
 
 func New(config *viper.Viper) *Service {

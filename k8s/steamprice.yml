@@ -1,36 +1,36 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: currency
+  name: steamprice
   labels:
-    app: currency
+    app: steamprice
 spec:
   replicas: 1
   selector:
       matchLabels:
-        app: currency
+        app: steamprice
   template:
     metadata:
       labels:
-        app: currency
+        app: steamprice
     spec:
       containers:
-      - name: currency
-        image: mrsigurniv/currency_rate:${TAG}
+      - name: steamprice
+        image: mrsigurniv/steamprice:${TAG}
         command:
         ports:
-          - containerPort: 8080
+          - containerPort: 8083
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: currency
+  name: steamprice
 spec:
   selector:
-    app: currency
+    app: steamprice
   type: NodePort
   ports:
-  - port: 8080
+  - port: 8083
     protocol: TCP
-    nodePort: 31001
-    name: currency
+    nodePort: 31003
+    name: steamprice

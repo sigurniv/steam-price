@@ -61,6 +61,12 @@
   revision = "8e9c1b9e03cc62179e6f729a7ffa1e87e616a57a"
 
 [[projects]]
+  branch = "master"
+  name = "github.com/sigurniv/workgroup"
+  packages = ["."]
+  revision = "efdcb12cb4bb20d26a7f2aa70e88f6952057ef5e"
+
+[[projects]]
   name = "github.com/spf13/afero"
   packages = [
     ".",
@@ -120,6 +126,12 @@
 
 [[projects]]
   branch = "master"
+  name = "golang.org/x/net"
+  packages = ["context"]
+  revision = "f73e4c9ed3b7ebdd5f699a16a880c2b1994e50dd"
+
+[[projects]]
+  branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
   revision = "7dfd1290c7917b7ba22824b9d24954ab3002fe24"
@@ -146,6 +158,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "1a2ab510b71bd39f5ca2c59cf7d808526cf809b7cb2c1dd15d0e9580919bce89"
+  inputs-digest = "2c99c009a4eafe3d2a3744f9706365474c8d1ca196339930e96100093d45ed8d"
   solver-name = "gps-cdcl"
   solver-version = 1

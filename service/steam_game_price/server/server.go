@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"context"
 	"errors"
-	"github.com/sigurniv/steam-price/service/currency_rate/rates"
-	"github.com/sigurniv/steam-price/service/currency_rate/storage"
+	"github.com/sigurniv/steam-price/service/steam_game_price/game"
+	"github.com/sigurniv/steam-price/service/steam_game_price/currency"
 )
 
 type Server struct {
@@ -26,9 +26,9 @@ func New(config *viper.Viper, logger *zap.SugaredLogger) (*Server, error) {
 		return nil, errors.New("server.port is not specified")
 	}
 
-	ratesService := rates.New(config)
-	storageService := storage.New(config)
-	handler := NewHandler(config, ratesService, storageService, logger)
+	gameService := game.New(config)
+	currencyService := currency.New(config)
+	handler := NewHandler(config, gameService, currencyService)
 
 	srv := &Server{
 		srv:     &http.Server{Addr: ":" + port},
@@ -39,9 +39,7 @@ func New(config *viper.Viper, logger *zap.SugaredLogger) (*Server, error) {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/info/", handler.info)
-	router.HandleFunc("/currency/list", handler.list).Methods("GET")
-	router.HandleFunc("/currency/pair", handler.addPair).Methods("POST")
-	router.HandleFunc("/currency/pair/{pair}/rate", handler.getRate).Methods("GET")
+	router.HandleFunc("/game/{appId}/{currency}", handler.game)
 	http.Handle("/", router)
 
 	return srv, err

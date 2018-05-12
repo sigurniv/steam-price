@@ -1,36 +1,36 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: currency
+  name: steamgame
   labels:
-    app: currency
+    app: steamgame
 spec:
   replicas: 1
   selector:
       matchLabels:
-        app: currency
+        app: steamgame
   template:
     metadata:
       labels:
-        app: currency
+        app: steamgame
     spec:
       containers:
-      - name: currency
-        image: mrsigurniv/currency_rate:${TAG}
+      - name: steamgame
+        image: mrsigurniv/steamgame:${TAG}
         command:
         ports:
-          - containerPort: 8080
+          - containerPort: 8081
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: currency
+  name: steamgame
 spec:
   selector:
-    app: currency
+    app: steamgame
   type: NodePort
   ports:
-  - port: 8080
+  - port: 8081
     protocol: TCP
-    nodePort: 31001
-    name: currency
+    nodePort: 31002
+    name: steamgame

@@ -1,6 +1,8 @@
 package service
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 func Response(msg interface{}) []byte {
 	resp := map[string]interface{}{

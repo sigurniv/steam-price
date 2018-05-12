@@ -26,7 +26,7 @@ func NewUpdater(config *viper.Viper, logger *zap.SugaredLogger, storageService *
 }
 
 func (updater *Updater) Run() {
-	ticker := time.NewTicker(time.Duration(updater.updateIntervalMin) * time.Second) //todo
+	ticker := time.NewTicker(time.Duration(updater.updateIntervalMin) * time.Minute)
 	isUpdating := false
 
 	for {

@@ -11,20 +11,22 @@ import (
 	"errors"
 	"github.com/gorilla/mux"
 	"strings"
+	"go.uber.org/zap"
 )
 
 type Handler struct {
 	config         *viper.Viper
 	ratesService   *rates.Service
 	StorageService *storage.Service
-	currencies     map[string]struct{}
+	logger         *zap.SugaredLogger
 }
 
-func NewHandler(config *viper.Viper, ratesService *rates.Service, storageService *storage.Service) *Handler {
+func NewHandler(config *viper.Viper, ratesService *rates.Service, storageService *storage.Service, logger *zap.SugaredLogger) *Handler {
 	return &Handler{
 		config:         config,
 		ratesService:   ratesService,
 		StorageService: storageService,
+		logger:         logger,
 	}
 }
 
@@ -71,8 +73,22 @@ func (handler *Handler) addPair(writer http.ResponseWriter, request *http.Reques
 		return
 	}
 
-	//todo check if pair is valid
 	response.Success = handler.StorageService.AddPair(addPairRequest.Pair)
+
+	//update rate on the fly for testing purposes
+	if response.Success {
+		ratesData, err := handler.ratesService.Rate(addPairRequest.Pair)
+		if err != nil {
+			handler.logger.Errorw("Error updating rates", "error", err.Error())
+		}
+
+		for pair, _ := range handler.StorageService.GetPairs() {
+			if rate, ok := ratesData[pair]; ok {
+				handler.StorageService.SetRate(pair, rate)
+			}
+		}
+	}
+
 	writer.Write(service.Response(response))
 }
 
@@ -90,6 +106,19 @@ func (handler *Handler) getRate(writer http.ResponseWriter, request *http.Reques
 	}
 
 	response.Rate = handler.StorageService.GetPair(pair)
+	if response.Rate == 0 {
+		//update rate on the fly for testing purposes
+		ratesData, err := handler.ratesService.Rate(pair)
+		if err != nil {
+			handler.logger.Errorw("Error updating rates", "error", err.Error())
+		}
+
+		if rate, ok := ratesData[pair]; ok {
+			handler.StorageService.SetRate(pair, rate)
+			response.Rate = rate
+		}
+	}
+
 	response.Pair = pair
 	writer.Write(service.Response(response))
 }
