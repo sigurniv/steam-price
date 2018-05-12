@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: steamgame
-        image: mrsigurniv/steamgame:${TAG}
+        image: mrsigurniv/steamgame:latest
         command:
         ports:
           - containerPort: 8081

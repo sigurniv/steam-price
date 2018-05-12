@@ -9,10 +9,10 @@ build:
 #	go build -ldflags "-X main.version=$(TAG)" -o nats-chat .
 
 pack:
-	docker build --no-cache -t $(DOCKER_ID_USER)/steamprice:$(TAG) .
+	docker build --no-cache -t $(DOCKER_ID_USER)/steamprice:latest .
 
 upload:
-	docker push $(DOCKER_ID_USER)/steamprice:$(TAG)
+	docker push $(DOCKER_ID_USER)/steamprice:latest
 
 deploy:
 	envsubst < ./../../k8s/steamprice.yml | kubectl apply -f -

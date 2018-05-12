@@ -9,10 +9,10 @@ build:
 #	go build -ldflags "-X main.version=$(TAG)" -o nats-chat .
 
 pack:
-	docker build --no-cache -t $(DOCKER_ID_USER)/steamgame:$(TAG) .
+	docker build --no-cache -t $(DOCKER_ID_USER)/steamgame:latest .
 
 upload:
-	docker push $(DOCKER_ID_USER)/steamgame:$(TAG)
+	docker push $(DOCKER_ID_USER)/steamgame:latest
 
 deploy:
 	envsubst < ./../../k8s/steamgame.yml | kubectl apply -f -

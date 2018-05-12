@@ -9,10 +9,10 @@ build:
 #	go build -ldflags "-X main.version=$(TAG)" -o nats-chat .
 
 pack:
-	docker build --no-cache -t $(DOCKER_ID_USER)/currency_rate:$(TAG) .
+	docker build --no-cache -t $(DOCKER_ID_USER)/currency_rate:latest .
 
 upload:
-	docker push $(DOCKER_ID_USER)/currency_rate:$(TAG)
+	docker push $(DOCKER_ID_USER)/currency_rate:latest
 
 deploy:
 	envsubst < ./../../k8s/currency_rate.yml | kubectl apply -f -

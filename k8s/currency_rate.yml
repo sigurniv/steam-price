@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: currency
-        image: mrsigurniv/currency_rate:${TAG}
+        image: mrsigurniv/currency_rate:latest
         command:
         ports:
           - containerPort: 8080

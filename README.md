@@ -1,6 +1,6 @@
 ### Установка
 ```sh
-$ go get github.com/sigurniv/steam-price
+$ go get -u github.com/sigurniv/steam-price
 ```
 
 ### Запуск

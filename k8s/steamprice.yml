@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: steamprice
-        image: mrsigurniv/steamprice:${TAG}
+        image: mrsigurniv/steamprice:latest
         command:
         ports:
           - containerPort: 8083
