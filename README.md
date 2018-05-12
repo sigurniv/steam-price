@@ -40,7 +40,7 @@ curl -X POST \
   -H 'postman-token: 6fb2538a-c2d7-bb41-9b0e-e99615f0a9fb' \
   -d '{
 	"pair": "RUB_USD"
-}
+}'
 ```
 
 Получение пары валют
